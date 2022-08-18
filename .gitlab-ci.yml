@@ -1,0 +1,5 @@
+image: git01.iis.fhg.de:5005/mkj/vscode-extension-of-the-week
+
+publish:
+  script:
+    - ./publish

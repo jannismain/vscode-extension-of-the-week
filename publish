@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# space="TEST93"
+# ancestor_page_id=240652825
+host="https://intern.iis.fhg.de/rest/api/"
+username="mkj"
+space="DOCS"
+ancestor_page_id=304882714
+src="VSCode Extension of the Week"
+
+echo "Publishing '$src' to '$space' space under page $ancestor_page_id"
+test -f .env && source .env || echo "No .env file found!"
+md2cf --host "$host" --username $username --only-changed --beautify-folders --strip-top-header --space $space -A $ancestor_page_id "$src"
