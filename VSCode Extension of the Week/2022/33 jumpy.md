@@ -10,7 +10,7 @@ This is an extension that provides fast cursor movements to arbitrary points in 
 2. Search for *Keyboard Shortcuts (JSON)* and `enter` to open the `keybinding.json` file
 3. Paste the following entry:
 
-    ```jsonc
+    ```json
     // jumpy extension
     {
         "key": "alt+enter",
