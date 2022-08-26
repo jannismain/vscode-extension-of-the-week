@@ -1,5 +1,5 @@
 ---
-title: autoDocstring
+title: "34: autoDocstring"
 github: https://github.com/NilsJPWerner/autoDocstring
 marketplace: https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
 ---
