@@ -2,6 +2,10 @@
 title: "34: autoDocstring"
 github: https://github.com/NilsJPWerner/autoDocstring
 marketplace: https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
+labels:
+    - vscode
+    - python
+    - documentation
 ---
 
 autoDocstring is an extension that automatically generates Python docstring boilerplate for you:

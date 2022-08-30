@@ -1,5 +1,7 @@
 ---
 title: "33: jumpy"
+labels:
+    - vscode
 ---
 [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy)
 
