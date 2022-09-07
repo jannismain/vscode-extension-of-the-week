@@ -31,7 +31,7 @@ All of this is managed in a single, global `projects.json` (similar to how VSCod
 
 ![project manager config](35_project-manager_config.png)
 
-You can open this file anytime using ![][win] <kbd>ctrl/⌘</kbd> <kbd>alt</kbd> <kbd>p</kbd> / ![][macos] <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>p</kbd> and search for "Edit Projects".
+You can open this file anytime using ![][win] <kbd>`ctrl`</kbd>+<kbd>`alt`</kbd>+<kbd>`p`</kbd> / ![][macos] <kbd>`⌘`</kbd> <kbd>`⌥`</kbd> <kbd>`p`</kbd> and search for "Edit Projects".
 
 ---
 
