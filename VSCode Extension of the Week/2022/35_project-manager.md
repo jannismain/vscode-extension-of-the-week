@@ -23,9 +23,9 @@ When you tell it where you checkout your projects, it will automatically scan th
 
 You can then:
 
-* save projects as favourites
-* tag projects
-* ...
+- save projects as favourites
+- tag projects
+- ...
 
 All of this is managed in a single, global `projects.json` (similar to how VSCode organizes its settings), and so it is easy and quick to setup:
 
@@ -39,5 +39,5 @@ You can open this file anytime using ![][win] `ctrl` + `alt` + `p` / ![][macos] 
 
 - *VSCode Theme: [Atom One Light Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight) + [City Lights Icons](https://marketplace.visualstudio.com/items?itemName=yummygum.city-lights-icon-vsc)*
 
-[macos]: ../../img/apple.svg
-[win]: ../../img/win.svg
+[macos]: ../../img/apple.svg "apple logo"
+[win]: ../../img/win.svg "windows logo"

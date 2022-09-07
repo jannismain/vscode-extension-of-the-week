@@ -3,4 +3,7 @@
 </center>
 </br>
 
-See [VSCode Extension of the Week](https://intern.iis.fhg.de/x/GiQsEg) in the [Visual Studio Code Knowledge Base](https://intern.iis.fhg.de/x/zBAqDg).
+# VSCode Extension of the Week
+
+→ [Article Series on Confluence](https://intern.iis.fhg.de/x/GiQsEg)\
+→ [Visual Studio Code Knowledge Base](https://intern.iis.fhg.de/x/zBAqDg)
