@@ -17,3 +17,8 @@ labels:
 ## Configuration
 
 <!-- Configuration options, recommended configuration, etc. -->
+
+
+<!-- references -->
+[macos]: ../../img/apple.svg
+[win]: ../../img/win.svg
