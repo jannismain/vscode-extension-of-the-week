@@ -9,7 +9,6 @@ labels:
 
 A very minimal approach to tracking how much time you spend in your Editor working on specific projects:
 
-<!-- Screenshot / Gif / ... -->
 ![elapsed time displayed in statusbar](36_csak-ext-timer.png)
 
 This extension, when enabled, generates a file in your `.vscode` directory to remember when you started working on this project and how much time you spent actually working on it. It displays this information in the statusbar.
@@ -21,7 +20,13 @@ Of course, when you are working on different copies of the same project, this ap
 [wakatime]: https://wakatime.com/
 <!-- Configuration options, recommended configuration, etc. -->
 
+---
+
+*In this article:*
+
+- *VSCode Theme: [Atom One Light Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight) + [City Lights Icons](https://marketplace.visualstudio.com/items?itemName=yummygum.city-lights-icon-vsc)*
 
 <!-- references -->
+
 [macos]: ../../img/apple.svg
 [win]: ../../img/win.svg
