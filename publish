@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# space="TEST93"
-# ancestor_page_id=240652825
 host="https://intern.iis.fhg.de/rest/api/"
 username="mkj"
 space="DOCS"
 ancestor_page_id=304882714
+
+# publish to test space by commenting out the following lines
+# space="TEST93"
+# ancestor_page_id=240652825
+
 src="VSCode Extension of the Week"
 
 echo "Publishing '$src' to '$space' space under page $ancestor_page_id"
