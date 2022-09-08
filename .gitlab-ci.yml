@@ -1,5 +1,26 @@
 image: git01.iis.fhg.de:5005/mkj/vscode-extension-of-the-week
 
-publish:
+confluence:
   script:
+    - pip install -e .
     - ./publish
+
+html:
+  script:
+    - cp -r "VSCode Extension of the Week" public
+    - pip install -e .
+    - python md2html2 public
+  artifacts:
+    paths:
+      - public
+
+pages:
+  needs:
+    - html
+  script:
+    - cp -r img public/img
+    - cd public
+    - ls **/*.html
+  artifacts:
+    paths:
+      - public

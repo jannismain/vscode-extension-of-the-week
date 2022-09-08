@@ -1,0 +1,45 @@
+# Python packaging & distribution
+[build-system]
+requires = ["setuptools >= 63.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eotw"
+description = "VSCode Extension of the Week."
+readme = "README.md"
+requires-python = ">=3.7"
+version = "0.1.0"
+authors = [
+    { "name" = "Jannis Mainczyk", "email" = "jannis.mainczyk@iis.fraunhofer.de" },
+]
+dependencies = [
+    "md2cf",
+    "jinja2",
+    "pyfiglet",
+    "questionary",
+    "python-frontmatter",
+]
+
+[project.scripts]
+eotw = "eotw:main"
+
+[tool.setuptools_scm]
+# write_to = "src/tm_filter/_version.py"
+
+# Python tooling
+
+[tool.black]
+line-length = 105
+target-version = ["py310"]
+extend_exclude = "ext"
+
+# https://github.com/timothycrosley/isort
+[tool.isort]
+profile = "black"
+py_version = 38
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 105
+known_first_party = ["eotw"]

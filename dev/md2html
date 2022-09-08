@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# find all markdown files, convert them to html and save them with their week only
+# this will generate URLs like this: /<year>/<week>
+echo "Converting Markdown to HTML..."
+find "../VSCode Extension of the Week/." -iname "*.md" -type f -execdir sh -c 'echo "$0"; pandoc -s "${0}" -o "${0%_*.md}.html"' `basename "{}"` \;

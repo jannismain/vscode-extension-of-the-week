@@ -8,7 +8,10 @@ import datetime
 
 from pyfiglet import Figlet
 
+from eotw import get_template
+
 here = pathlib.Path(__file__).parent
+templates = here / "templates"
 posts = here / "VSCode Extension of the Week"
 
 
@@ -23,7 +26,7 @@ def main():
     data["year"] = data["week"].split(".")[0]
     data["week"] = data["week"].split(".")[1]
 
-    new_post = get_template().render(data)
+    new_post = get_template("post").render(data)
     # put data into namespace for more readable code below
     data = SimpleNamespace(**data)
 
@@ -58,9 +61,7 @@ def dialog():
             "message": "What week do you want to create a post for?",
             "validate": WeekValidator,
             "filter": lambda val: f"{int(val.split('.')[0])}.{int(val.split('.')[1]):02d}",
-            "default": ".".join(
-                f"{d:02d}" for d in datetime.datetime.now().isocalendar()[:-1]
-            ),
+            "default": ".".join(f"{d:02d}" for d in datetime.datetime.now().isocalendar()[:-1]),
         },
         {
             "type": "input",
@@ -81,13 +82,6 @@ def dialog():
         },
     ]
     return prompt(questions)
-
-
-def get_template():
-    environment = jinja2.Environment(
-        trim_blocks=True, autoescape=True, loader=jinja2.FileSystemLoader(here)
-    )
-    return environment.get_template(f"template.md")
 
 
 if __name__ == "__main__":
