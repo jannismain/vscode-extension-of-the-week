@@ -26,6 +26,7 @@ labels:
 
 <!-- references -->
 
+[{{extension_name}}]: https://marketplace.visualstudio.com/items?itemName={{extension}}
 [macos]: ../../img/apple.svg
 [win]: ../../img/win.svg
 [atom one light theme]: https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight
