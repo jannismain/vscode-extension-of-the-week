@@ -74,7 +74,7 @@ def dialog():
             "type": "checkbox",
             "name": "labels",
             "message": "Any labels you want to assign?",
-            "choices": ["python", "documentation", "shell", "macOS"],
+            "choices": ["python", "documentation", "shell", "macOS", "git"],
         },
     ]
     return prompt(questions)
