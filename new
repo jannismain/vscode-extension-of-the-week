@@ -62,7 +62,13 @@ def dialog():
         {
             "type": "input",
             "name": "extension",
-            "message": "What extension do you want to highlight?",
+            "message": "What extension do you want to highlight? Extension ID:",
+        },
+        {
+            "type": "input",
+            "name": "extension_name",
+            "message": "What is this extension called?",
+            "default": lambda answers: answers["extension"].split(".")[-1],
         },
         {
             "type": "checkbox",

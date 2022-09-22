@@ -1,5 +1,5 @@
 ---
-title: "{{week}}: {{extension.split('.')[-1]}}"
+title: "{{week}}: {{extension_name}}"
 marketplace: https://marketplace.visualstudio.com/items?itemName={{extension}}
 labels:
     - vscode
@@ -8,7 +8,7 @@ labels:
 {% endfor %}
 ---
 
-[Open {{extension.split(".")[-1]}} in VSCode](vscode:extension/{{extension}}), [{{extension.split(".")[-1]}} on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName={{extension}})
+[Open {{extension_name}} in VSCode](vscode:extension/{{extension}}), [{{extension_name}} on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName={{extension}})
 
 <!-- Short Description -->
 
