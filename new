@@ -47,7 +47,8 @@ def dialog():
                 1 <= int(document.text.split(".")[1]) <= 53
             except ValueError:
                 raise ValidationError(
-                    message="Please enter a valid calendar week", cursor_position=len(document.text)
+                    message="Please enter a valid calendar week",
+                    cursor_position=len(document.text),
                 )
 
     questions = [
@@ -57,7 +58,9 @@ def dialog():
             "message": "What week do you want to create a post for?",
             "validate": WeekValidator,
             "filter": lambda val: f"{int(val.split('.')[0])}.{int(val.split('.')[1]):02d}",
-            "default": ".".join(f"{d:02d}" for d in datetime.datetime.now().isocalendar()[:-1]),
+            "default": ".".join(
+                f"{d:02d}" for d in datetime.datetime.now().isocalendar()[:-1]
+            ),
         },
         {
             "type": "input",
@@ -81,7 +84,9 @@ def dialog():
 
 
 def get_template():
-    environment = jinja2.Environment(trim_blocks=True, autoescape=True, loader=jinja2.FileSystemLoader(here))
+    environment = jinja2.Environment(
+        trim_blocks=True, autoescape=True, loader=jinja2.FileSystemLoader(here)
+    )
     return environment.get_template(f"template.md")
 
 
