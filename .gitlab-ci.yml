@@ -5,9 +5,10 @@ confluence:
     - pip install -e .
     - ./publish
   rules:
+    # only publish from default branch
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+      when: never
     - if: $CI_SERVER_HOST == "git01.iis.fhg.de"
-  only:
-    - main
 
 html:
   script:
@@ -28,5 +29,7 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - main
+  rules:
+    # only publish from default branch
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+      when: never
