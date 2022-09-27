@@ -4,6 +4,8 @@ confluence:
   script:
     - pip install -e .
     - ./publish
+  rules:
+    - if: $CI_SERVER_HOST == "git01.iis.fhg.de"
 
 html:
   script:
