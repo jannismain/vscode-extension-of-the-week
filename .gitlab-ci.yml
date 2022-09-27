@@ -6,6 +6,8 @@ confluence:
     - ./publish
   rules:
     - if: $CI_SERVER_HOST == "git01.iis.fhg.de"
+  only:
+    - main
 
 html:
   script:
@@ -26,3 +28,5 @@ pages:
   artifacts:
     paths:
       - public
+  only:
+    - main
