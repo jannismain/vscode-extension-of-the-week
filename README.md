@@ -10,10 +10,3 @@ From within Fraunhofer IIS, head over to the
 → [Article Series on Confluence](https://intern.iis.fhg.de/x/GiQsEg)
 
 For everyone else, this article series is available over [here](http://mkj.pages.fraunhofer.de/vscode-extension-of-the-week).
-
-<!-- If you want to read the articles here, go to
-
-→ [Article Series on Gitlab]()
-→ [Article Series on Github]()
-
-TODO: Add link to published pages here -->

@@ -2,7 +2,6 @@
 
 import pathlib
 from types import SimpleNamespace
-import jinja2
 from questionary import prompt, Validator, ValidationError
 import datetime
 

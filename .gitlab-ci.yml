@@ -14,7 +14,7 @@ html:
   script:
     - cp -r "VSCode Extension of the Week" public
     - pip install -e .
-    - python md2html2 public
+    - python md2html public
   artifacts:
     paths:
       - public

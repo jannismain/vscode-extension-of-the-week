@@ -23,9 +23,6 @@ dependencies = [
 [project.scripts]
 eotw = "eotw:main"
 
-[tool.setuptools_scm]
-# write_to = "src/tm_filter/_version.py"
-
 # Python tooling
 
 [tool.black]
