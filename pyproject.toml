@@ -19,6 +19,8 @@ dependencies = [
     "questionary",
     "python-frontmatter",
 ]
+[project.optional-dependencies]
+dev = ["flake8", "black", "isort"]
 
 [project.scripts]
 eotw = "eotw:main"
