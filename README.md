@@ -1,5 +1,5 @@
 <center>
-<img src="https://github.com/jannismain/vscode-extension-of-the-week/blob/main/img/banner.png?raw=true" width=543>
+<img src="https://raw.githubusercontent.com/jannismain/vscode-extension-of-the-week/main/img/banner.png" width=543>
 </center>
 </br>
 
