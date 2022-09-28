@@ -1,6 +1,7 @@
 ---
 title: "38: Formatting Toggle"
-marketplace: https://marketplace.visualstudio.com/items?itemName=tombonnike.vscode-status-bar-format-toggle
+links:
+    marketplace: https://marketplace.visualstudio.com/items?itemName=tombonnike.vscode-status-bar-format-toggle
 labels:
     - vscode
 ---

@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import pathlib
+import datetime
+import re
+import frontmatter
+
+from eotw import get_template
+
+MARKER = "<!-- toc-begin -->{}<!-- toc-end -->"
+PATTERN = MARKER.format(r"(.|\n)*")
+
+
+def main(src: pathlib.Path, dest="README.md", strip_labels=("vscode",)):
+    posts_metadata = []
+    years = sorted([d.name for d in src.glob("*") if d.is_dir()], reverse=True)
+    for post in sorted(src.glob("*/*.md"), key=lambda x: x.name, reverse=True):
+        fm = frontmatter.load(post).to_dict()
+        if "labels" in fm:
+            fm["labels"] = [label for label in fm["labels"] if label not in strip_labels]
+        if "links" in fm:
+            fm["links"] = [
+                f"[![][{name[1:-1]}]]({url})" if name[0] == ":" else f"[{name}]({url})"
+                for name, url in fm["links"].items()
+            ]
+        posts_metadata.append(
+            {
+                "year": post.parent.name,
+                "week": post.name[0:2],
+                "extension": fm["title"][4:],
+                "fn_markdown": post.name,
+                "fp_markdown": post.relative_to(post.parent.parent.parent),
+                **fm,
+            }
+        )
+    toc = get_template("toc").render(
+        {
+            "posts": posts_metadata,
+            "years": years,
+            "ref": "{fp_markdown}",
+        }
+    )
+    with open(dest) as fp:
+        in_toc = False
+        readme_content = fp.read()
+        result = re.search(PATTERN, readme_content)
+        readme_new = re.sub(
+            pattern=r"<!-- toc-begin -->(.|\n)*<!-- toc-end -->",
+            repl=MARKER.format(f"{toc}"),
+            string=readme_content,
+        )
+
+    if readme_new != readme_content:
+        # save previous README file as backup, in case something goes wrong.
+        pathlib.Path(dest).rename(f"{dest}.{datetime.datetime.now().isoformat()}")
+
+        with open(dest, "w") as fp:
+            fp.write(readme_new)
+        print(f"{dest} has been updated!")
+        exit(1)
+    exit(0)
+
+
+if __name__ == "__main__":
+    import sys
+
+    src = pathlib.Path(sys.argv[1])
+    if len(sys.argv) > 2:
+        dest = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else "README.md"
+    main(src, dest)

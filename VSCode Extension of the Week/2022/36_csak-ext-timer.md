@@ -1,6 +1,7 @@
 ---
 title: "36: csak-ext-timer"
-marketplace: https://marketplace.visualstudio.com/items?itemName=csakaszamok.csak-ext-timer
+links:
+    marketplace: https://marketplace.visualstudio.com/items?itemName=csakaszamok.csak-ext-timer
 labels:
     - vscode
 ---

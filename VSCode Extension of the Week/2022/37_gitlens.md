@@ -1,6 +1,7 @@
 ---
 title: "37: GitLens"
-marketplace: https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
+links:
+    marketplace: https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
 labels:
     - vscode
     - git

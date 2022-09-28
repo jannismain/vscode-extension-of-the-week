@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+./update-toc "VSCode Extension of the Week" README.md || (git add README.md && exit 1)

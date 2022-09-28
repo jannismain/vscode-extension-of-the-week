@@ -1,6 +1,7 @@
 ---
 title: "35: Project Manager"
-marketplace: https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager
+links:
+    Marketplace: https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager
 labels:
     - vscode
 ---

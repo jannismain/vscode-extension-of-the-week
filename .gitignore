@@ -1,6 +1,7 @@
 .env
 *.html
 VSCode Extension of the Week/**/index.md
+README.md.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

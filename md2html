@@ -12,7 +12,7 @@ from eotw import get_template
 
 def main(dir_posts: str, pattern: str = "*/*.md"):
     fp_posts = pathlib.Path(__file__).with_name(dir_posts)
-    generate_index(src=fp_posts)
+    # generate_index(src=fp_posts)
     convert_articles(src=fp_posts)
     convert_indices(src=fp_posts)
 
