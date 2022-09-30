@@ -3,18 +3,27 @@
 import pathlib
 import datetime
 import re
+from typing import Tuple
 import frontmatter
 
 from eotw import get_template
+from eotw.cli import app
 
 MARKER = "<!-- toc-begin -->{}<!-- toc-end -->"
 PATTERN = MARKER.format(r"(.|\n)*")
 
 
-def main(src: pathlib.Path, dest="README.md", strip_labels=("vscode",)):
+@app.command(name="update-toc")
+def update(
+    posts: pathlib.Path,
+    dest="README.md",
+    strip_labels=("vscode",),
+    url_ref="{fp_markdown}",
+    backup_original=True,
+):
     posts_metadata = []
-    years = sorted([d.name for d in src.glob("*") if d.is_dir()], reverse=True)
-    for post in sorted(src.glob("*/*.md"), key=lambda x: x.name, reverse=True):
+    years = sorted([d.name for d in posts.glob("*") if d.is_dir()], reverse=True)
+    for post in sorted(posts.glob("*/*.md"), key=lambda x: x.name, reverse=True):
         fm = frontmatter.load(post).to_dict()
         if "labels" in fm:
             fm["labels"] = [label for label in fm["labels"] if label not in strip_labels]
@@ -37,7 +46,7 @@ def main(src: pathlib.Path, dest="README.md", strip_labels=("vscode",)):
         {
             "posts": posts_metadata,
             "years": years,
-            "ref": "{fp_markdown}",
+            "ref": url_ref,
         }
     )
     with open(dest) as fp:
@@ -51,20 +60,11 @@ def main(src: pathlib.Path, dest="README.md", strip_labels=("vscode",)):
         )
 
     if readme_new != readme_content:
-        # save previous README file as backup, in case something goes wrong.
-        pathlib.Path(dest).rename(f"{dest}.{datetime.datetime.now().isoformat()}")
-
+        if backup_original:
+            # save previous README file as backup, in case something goes wrong.
+            pathlib.Path(dest).rename(f"{dest}.{datetime.datetime.now().isoformat()}")
         with open(dest, "w") as fp:
             fp.write(readme_new)
         print(f"{dest} has been updated!")
-        exit(1)
-    exit(0)
-
-
-if __name__ == "__main__":
-    import sys
-
-    src = pathlib.Path(sys.argv[1])
-    if len(sys.argv) > 2:
-        dest = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else "README.md"
-    main(src, dest)
+        exit(0)
+    exit(1)

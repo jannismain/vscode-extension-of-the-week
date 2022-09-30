@@ -8,13 +8,11 @@ import datetime
 from pyfiglet import Figlet
 
 from eotw import get_template
-
-here = pathlib.Path(__file__).parent
-templates = here / "templates"
-posts = here / "VSCode Extension of the Week"
+from eotw.cli import app
 
 
-def main():
+@app.command()
+def new(posts: pathlib.Path = pathlib.Path("VSCode Extension of the Week")):
     figlet = Figlet(font="slant")
     print(figlet.renderText("VSCode EotW"))
 
@@ -77,11 +75,14 @@ def dialog():
             "type": "checkbox",
             "name": "labels",
             "message": "Any labels you want to assign?",
-            "choices": ["python", "documentation", "shell", "macOS", "git"],
+            "choices": [
+                "python",
+                "documentation",
+                "shell",
+                "macOS",
+                "git",
+                "markdown",
+            ],  # TODO: load labels from previous posts
         },
     ]
     return prompt(questions)
-
-
-if __name__ == "__main__":
-    main()

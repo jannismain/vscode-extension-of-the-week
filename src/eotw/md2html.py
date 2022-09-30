@@ -3,21 +3,18 @@
 import logging
 import pathlib
 import subprocess
-import sys
 
 import frontmatter
 
 from eotw import get_template
 
 
-def main(dir_posts: str, pattern: str = "*/*.md"):
-    fp_posts = pathlib.Path(__file__).with_name(dir_posts)
-    # generate_index(src=fp_posts)
-    convert_articles(src=fp_posts)
-    convert_indices(src=fp_posts)
-
-
-def generate_index(src: pathlib.Path, strip_labels=("vscode",)):
+def generate_index(
+    src: pathlib.Path,
+    title="VSCode Extension of the Week",
+    url_ref="{year}/{week}",
+    strip_labels=("vscode",),
+):
     posts_metadata = []
     years = sorted([d.name for d in src.glob("*") if d.is_dir()], reverse=True)
     for post in sorted(src.glob("*/*.md"), key=lambda x: x.name, reverse=True):
@@ -27,19 +24,19 @@ def generate_index(src: pathlib.Path, strip_labels=("vscode",)):
             {"year": post.parent.name, "week": post.name[0:2], "extension": fm["title"][4:], **fm}
         )
     index = get_template("index").render(
-        {"posts": posts_metadata, "title": "VSCode Extension of the Week", "years": years}
+        {"posts": posts_metadata, "title": title, "years": years, "ref": url_ref}
     )
     with (src / "index.md").open("w") as fp:
         fp.write(index)
 
 
-def convert_articles(src: pathlib.Path):
-    for article in src.glob("*/*.md"):
-        target_filename = article.stem.split("_")[0] + ".html"
-        print(f"Converting {article.name} -> {target_filename}")
+def convert_posts(src: pathlib.Path):
+    for post in src.glob("*/*.md"):
+        target_filename = post.stem.split("_")[0] + ".html"
+        print(f"Converting {post.name} -> {target_filename}")
         _pandoc(
-            src=str(article.relative_to(src.parent)),
-            dest=str(article.with_name(target_filename).relative_to(src.parent)),
+            src=str(post.relative_to(src.parent)),
+            dest=str(post.with_name(target_filename).relative_to(src.parent)),
         )
 
 
@@ -63,16 +60,3 @@ def _pandoc(src, dest, args=tuple()):
         logging.info(result.stdout.decode())
     if result.stderr:
         logging.error(result.stderr.decode())
-
-
-if __name__ == "__main__":
-    import logging
-    import sys
-
-    logging.basicConfig(level=logging.INFO, format="| %(message)s")
-
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} [DIR]", file=sys.stderr)
-        exit(1)
-
-    main(sys.argv[1])

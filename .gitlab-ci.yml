@@ -3,7 +3,7 @@ image: git01.iis.fhg.de:5005/mkj/vscode-extension-of-the-week
 confluence:
   script:
     - pip install -e .
-    - ./publish
+    - ./dev/publish
   rules:
     # only publish from default branch
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
@@ -14,9 +14,9 @@ html:
   script:
     - cp -r "VSCode Extension of the Week" public
     - cp -r img public/img
-    - cp README.md public/index.md
     - pip install -e .
-    - python md2html public
+    - python -m eotw to-html --dir-posts public
+    - python -m eotw update-toc public --dest public/index.md --url-ref "{year}/{week}"
   artifacts:
     paths:
       - public
