@@ -13,10 +13,10 @@ confluence:
 html:
   script:
     - cp -r "VSCode Extension of the Week" public
-    - cp -r img public/img
     - pip install -e .
     - python -m eotw update-toc public --toc-file README.md --target public/index.md --url-ref "{year}/{week}"
     - python -m eotw to-html --dir-posts public
+    - cp -r img public/img
   artifacts:
     paths:
       - public
