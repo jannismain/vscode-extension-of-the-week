@@ -19,7 +19,7 @@ def update(
     dest="README.md",
     strip_labels=("vscode",),
     url_ref="{fp_markdown}",
-    backup_original=True,
+    backup_original: bool = True,
 ):
     posts_metadata = []
     years = sorted([d.name for d in posts.glob("*") if d.is_dir()], reverse=True)
