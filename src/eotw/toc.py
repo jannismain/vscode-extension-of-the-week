@@ -16,11 +16,14 @@ PATTERN = MARKER.format(r"(.|\n)*")
 @app.command(name="update-toc")
 def update(
     posts: pathlib.Path,
-    dest="README.md",
+    toc_file="README.md",
+    target=None,
     strip_labels=("vscode",),
     url_ref="{fp_markdown}",
     backup_original: bool = True,
 ):
+    if target is None:
+        target = toc_file
     posts_metadata = []
     years = sorted([d.name for d in posts.glob("*") if d.is_dir()], reverse=True)
     for post in sorted(posts.glob("*/*.md"), key=lambda x: x.name, reverse=True):
@@ -49,7 +52,7 @@ def update(
             "ref": url_ref,
         }
     )
-    with open(dest) as fp:
+    with open(toc_file) as fp:
         in_toc = False
         readme_content = fp.read()
         result = re.search(PATTERN, readme_content)
@@ -60,11 +63,18 @@ def update(
         )
 
     if readme_new != readme_content:
-        if backup_original:
+        if backup_original and toc_file == target:
             # save previous README file as backup, in case something goes wrong.
-            pathlib.Path(dest).rename(f"{dest}.{datetime.datetime.now().isoformat()}")
-        with open(dest, "w") as fp:
+            pathlib.Path(toc_file).rename(f"{toc_file}.{datetime.datetime.now().isoformat()}")
+        with open(target, "w") as fp:
             fp.write(readme_new)
-        print(f"{dest} has been updated!")
+        print(f"toc has been updated!")
         exit(0)
+    else:
+        print(f"toc has not changed!")
+        # even if toc didn't change, write file to target location
+        if toc_file != target:
+            with open(target, "w") as fp:
+                fp.write(readme_new)
+            print(f"{toc_file} has been copied to {target}")
     exit(1)
