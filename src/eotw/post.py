@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
+import datetime
 import pathlib
 from types import SimpleNamespace
-from questionary import prompt, Validator, ValidationError
-import datetime
 
 from pyfiglet import Figlet
+from questionary import ValidationError, Validator, prompt
 
 from eotw import get_template
 from eotw.cli import app
@@ -28,7 +28,9 @@ def new(posts: pathlib.Path = pathlib.Path("VSCode Extension of the Week")):
     data = SimpleNamespace(**data)
 
     filename = f"{data.week}_{data.extension.split('.')[-1]}.md"
-    fp_new_post = posts / data.year / filename
+    fp_new_post: pathlib.Path = posts / data.year / filename
+
+    fp_new_post.parent.mkdir(parents=True, exist_ok=True)
     with fp_new_post.open("w") as fp:
         fp.write(new_post)
 
