@@ -28,6 +28,7 @@ def update(
     target=None,
     strip_labels=("vscode",),
     url_ref="{fp_markdown}",
+    title_ref="{year}",
     backup_original: bool = True,
     pattern="*/*.md",
 ):
@@ -59,7 +60,13 @@ def update(
         )
     logging.debug("Render these posts in toc: %s", posts_metadata)
     toc = get_template(template).render(
-        {"posts": posts_metadata, "years": years, "ref": url_ref, "include_markers": True}
+        {
+            "posts": posts_metadata,
+            "years": years,
+            "ref": url_ref,
+            "title_ref": title_ref,
+            "include_markers": True,
+        }
     )
     with open(toc_file) as fp:
         in_toc = False

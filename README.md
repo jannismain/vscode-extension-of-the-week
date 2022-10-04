@@ -7,7 +7,7 @@
 
 <!-- toc-begin -->
 
-## [2022](2022)
+## [2022](VSCode%20Extension%20of%20the%20Week/2022)
 
 |     | Extension | Labels | Links |
 | --- | --------- | ------ | ----- |
