@@ -11,6 +11,7 @@ from eotw import get_template
 
 def create_index(
     src: pathlib.Path,
+    target: pathlib.Path = "{src}/index.md",
     title="VSCode Extension of the Week",
     url_ref="{year}/{week}",
     pattern="*/*.md",
@@ -18,6 +19,7 @@ def create_index(
     template="index",
     template_context=dict(include_markers=True),
 ):
+    target = pathlib.Path(target.format(src=src))
     posts_metadata = []
     years = sorted([d.name for d in src.glob("*") if d.is_dir()], reverse=True)
     for post in sorted(src.glob(pattern), key=lambda x: x.name, reverse=True):
@@ -31,9 +33,11 @@ def create_index(
     index = get_template(template).render(
         {"posts": posts_metadata, "title": title, "years": years, "ref": url_ref, **template_context}
     )
-    with (src / "index.md").open("w") as fp:
+    with target.open("w") as fp:
         fp.write(index)
-        print(f"Created '{src/'index.md'}'")
+        print(f"Created '{target.relative_to(src)}'")
+
+    return target
 
 
 def convert_posts(src: pathlib.Path):

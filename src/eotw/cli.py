@@ -26,6 +26,8 @@ def create_indices(
     pattern: str = "*/*.md",
     force: bool = False,
 ):
+    from eotw import toc
+
     # create main index
     index_target = dir_posts / "index.md"
     if index_target.exists() and not force:
@@ -35,14 +37,25 @@ def create_indices(
     else:
         md2html.create_index(src=dir_posts)
 
+    toc.update(index_target, posts=dir_posts, url_ref="{year}/{week}", backup_original=False)
+
     # create index for first-level subdirectories
     for subdirectory in [d for d in dir_posts.glob("*") if d.is_dir()]:
-        md2html.create_index(
+        subindex_target = md2html.create_index(
             src=subdirectory,
             title=subdirectory.name,
             url_ref="{week}",
             pattern=pattern.split("/", maxsplit=1)[1],
             template="subindex",
+        )
+
+        toc.update(
+            subindex_target,
+            posts=subdirectory,
+            template="toc",
+            url_ref="{week}",
+            pattern="*.md",
+            backup_original=False,
         )
 
 
@@ -53,6 +66,7 @@ def build(
 ):
     if not dir_posts.is_dir():
         raise typer.BadParameter("dir_posts must exist already!")
+    create_indices(dir_posts=dir_posts, custom_index="README.md", pattern=pattern)
     md2html.convert_posts(src=dir_posts)
     md2html.convert_indices(src=dir_posts)
 

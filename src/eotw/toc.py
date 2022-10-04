@@ -29,7 +29,7 @@ def update(
     strip_labels=("vscode",),
     url_ref="{fp_markdown}",
     backup_original: bool = True,
-    pattern="*/*.py",
+    pattern="*/*.md",
 ):
     if target is None:
         target = toc_file
@@ -78,7 +78,7 @@ def update(
         with open(target, "w") as fp:
             fp.write(readme_new)
         print(f"toc has been updated!")
-        exit(0)
+        return 0
     else:
         print(f"toc has not changed!")
         # even if toc didn't change, write file to target location
@@ -86,6 +86,6 @@ def update(
             with open(target, "w") as fp:
                 fp.write(readme_new)
             print(f"{toc_file} has been copied to {target}")
-            exit(0)
+            return 0
         # nothing happened, which is probably not what was intended when running this command
-        exit(1)
+        return 1
