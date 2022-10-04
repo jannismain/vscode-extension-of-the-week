@@ -1,5 +1,4 @@
 ![](img/banner.png)
 
 # {{title}}
-
-{% include 'toc_multi.md' %}
+{% include 'toc.md' %}

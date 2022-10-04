@@ -1,12 +1,7 @@
-{% for year in years %}
-
-## {{year}}
-
+{% if include_markers %}<!-- toc-begin -->{% endif +%}
 |     | Extension | Labels | Links |
 | --- | --------- | ------ | ----- |
 {% for post in posts %}
-{% if post.year == year %}
 | {{post.week}} | [{{post.extension}}]({{ref.format(**post).replace(" ", "%20") | default(post.year+"/"+post.week+".html")}}) | {{post.labels | join(", ")}} | {{post.links | join(", ")}}
-{% endif %}
-{% endfor %}
-{% endfor %}
+{% endfor -%}
+{% if include_markers %}<!-- toc-end -->{% endif %}

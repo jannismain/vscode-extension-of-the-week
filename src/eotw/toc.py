@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import pathlib
 import datetime
+import logging
+import pathlib
 import re
-from typing import Tuple
+from enum import Enum
+
 import frontmatter
 
 from eotw import get_template
@@ -13,20 +15,30 @@ MARKER = "<!-- toc-begin -->{}<!-- toc-end -->"
 PATTERN = MARKER.format(r"(.|\n)*")
 
 
+class TocTemplate(str, Enum):
+    toc = "toc"
+    toc_multi = "toc_multi"
+
+
 @app.command(name="update-toc")
 def update(
+    toc_file: pathlib.Path,
     posts: pathlib.Path,
-    toc_file="README.md",
+    template: TocTemplate = "toc_multi",
     target=None,
     strip_labels=("vscode",),
     url_ref="{fp_markdown}",
     backup_original: bool = True,
+    pattern="*/*.py",
 ):
     if target is None:
         target = toc_file
     posts_metadata = []
     years = sorted([d.name for d in posts.glob("*") if d.is_dir()], reverse=True)
-    for post in sorted(posts.glob("*/*.md"), key=lambda x: x.name, reverse=True):
+    for post in sorted(posts.glob(pattern), key=lambda x: x.name, reverse=True):
+        if post.name == "index.md":
+            continue
+        logging.debug("Found %s", post)
         fm = frontmatter.load(post).to_dict()
         if "labels" in fm:
             fm["labels"] = [label for label in fm["labels"] if label not in strip_labels]
@@ -45,20 +57,17 @@ def update(
                 **fm,
             }
         )
-    toc = get_template("toc").render(
-        {
-            "posts": posts_metadata,
-            "years": years,
-            "ref": url_ref,
-        }
+    logging.debug("Render these posts in toc: %s", posts_metadata)
+    toc = get_template(template).render(
+        {"posts": posts_metadata, "years": years, "ref": url_ref, "include_markers": True}
     )
     with open(toc_file) as fp:
         in_toc = False
         readme_content = fp.read()
         result = re.search(PATTERN, readme_content)
         readme_new = re.sub(
-            pattern=r"<!-- toc-begin -->(.|\n)*<!-- toc-end -->",
-            repl=MARKER.format(f"{toc}"),
+            pattern=MARKER.format("(.|\n)*"),
+            repl=toc,
             string=readme_content,
         )
 
