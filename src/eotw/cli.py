@@ -1,6 +1,6 @@
+import logging
 import pathlib
 import shutil
-import logging
 from typing import Optional
 
 import typer
@@ -12,27 +12,47 @@ app = typer.Typer()
 here = pathlib.Path.cwd()
 
 
+@app.callback()
+def main(ctx: typer.Context):
+    """Tiny markdown-based blog."""
+    logging.basicConfig(level=logging.DEBUG, format="%(message)s", stream=open("eotw.log", "w+"))
+    logging.debug(f"About to execute command: {ctx.invoked_subcommand}")
+
+
 @app.command()
-def to_html(
-    dir_posts: pathlib.Path = (here / "VSCode Extension of the Week").relative_to(here),
-    index: pathlib.Path = (here / "README.md").relative_to(here),
-    overwrite_index: bool = False,
+def create_indices(
+    dir_posts: pathlib.Path,
+    custom_index: Optional[pathlib.Path] = None,
+    pattern: str = "*/*.md",
+    force: bool = False,
+):
+    # create main index
+    index_target = dir_posts / "index.md"
+    if index_target.exists() and not force:
+        print(f"Skipping '{index_target}': already exists")
+    elif custom_index is not None:
+        shutil.copy(custom_index, dir_posts / "index.md")
+    else:
+        md2html.create_index(src=dir_posts)
+
+    # create index for first-level subdirectories
+    for subdirectory in [d for d in dir_posts.glob("*") if d.is_dir()]:
+        md2html.create_index(
+            src=subdirectory,
+            title=subdirectory.name,
+            url_ref="{week}",
+            pattern=pattern.split("/", maxsplit=1)[1],
+            template="subindex",
+        )
+
+
+@app.command()
+def build(
+    dir_posts: pathlib.Path,
     pattern: str = "*/*.md",
 ):
-    skip_index_creation = False
-    if (dir_posts / "index.md").exists():
-        print(
-            "index.md already exists"
-            + (" and will be overwritten" if overwrite_index else ". skip index creation")
-        )
-        if not overwrite_index:
-            skip_index_creation = True
-    if not skip_index_creation:
-        if index.is_file():
-            shutil.copy(index, dir_posts / "index.md")
-        else:
-            logging.warn(f"Given index '{index}' is not a file. Will generate index based on template.")
-            md2html.generate_index(src=dir_posts)
+    if not dir_posts.is_dir():
+        raise typer.BadParameter("dir_posts must exist already!")
     md2html.convert_posts(src=dir_posts)
     md2html.convert_indices(src=dir_posts)
 

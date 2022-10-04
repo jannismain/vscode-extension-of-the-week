@@ -1,5 +1,8 @@
 ---
 title: "33: jumpy"
+links:
+    :github:: https://github.com/wmaurer/vscode-jumpy
+    Marketplace: https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy
 labels:
     - vscode
 ---

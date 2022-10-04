@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
+import datetime
 import pathlib
 from types import SimpleNamespace
-from questionary import prompt, Validator, ValidationError
-import datetime
 
 from pyfiglet import Figlet
+from questionary import ValidationError, Validator, prompt
 
 from eotw import get_template
 from eotw.cli import app
@@ -28,7 +28,9 @@ def new(posts: pathlib.Path = pathlib.Path("VSCode Extension of the Week")):
     data = SimpleNamespace(**data)
 
     filename = f"{data.week}_{data.extension.split('.')[-1]}.md"
-    fp_new_post = posts / data.year / filename
+    fp_new_post: pathlib.Path = posts / data.year / filename
+
+    fp_new_post.parent.mkdir(parents=True, exist_ok=True)
     with fp_new_post.open("w") as fp:
         fp.write(new_post)
 
@@ -36,16 +38,27 @@ def new(posts: pathlib.Path = pathlib.Path("VSCode Extension of the Week")):
 def dialog():
     class WeekValidator(Validator):
         def validate(self, document):
+            sep = "."
             try:
-                1900 <= int(document.text.split(".")[0]) <= 2100
-            except ValueError:
+                if sep in document.text:
+                    year = int(document.text.split(sep)[0])
+                else:
+                    year = int(document.text)
+                assert 1900 <= year <= 2100
+            except (ValueError, AssertionError):
                 raise ValidationError(
                     message="Must provide year between 1900 and 2100.",
                     cursor_position=len(document.text.split(".")[0]),
                 )
+            if sep not in document.text:
+                raise ValidationError(message=f"year and week must be separated by '{sep}'")
             try:
-                1 <= int(document.text.split(".")[1]) <= 53
-            except ValueError:
+                if sep in document.text:
+                    week = int(document.text.split(sep)[1])
+                else:
+                    week = 0
+                assert 1 <= week <= 53
+            except (ValueError, AssertionError):
                 raise ValidationError(
                     message="Please enter a valid calendar week",
                     cursor_position=len(document.text),
