@@ -51,15 +51,16 @@ def convert_posts(src: pathlib.Path):
 
 
 def convert_indices(src: pathlib.Path):
-    for index in src.glob("**/index.md"):
-        _pandoc(
-            src=index.relative_to(src.parent),
-            dest=index.with_suffix(".html").relative_to(src.parent),
-            args=[
-                "--css",
-                "style.css",
-            ],
-        )
+    for pattern, css_ref in [("index.md", "style.css"), ("*/index.md", "../style.css")]:
+        for index in src.glob(pattern):
+            _pandoc(
+                src=index.relative_to(src.parent),
+                dest=index.with_suffix(".html").relative_to(src.parent),
+                args=[
+                    "--css",
+                    css_ref,
+                ],
+            )
 
 
 def _pandoc(src, dest, args=tuple()):
