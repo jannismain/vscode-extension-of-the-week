@@ -86,4 +86,6 @@ def update(
             with open(target, "w") as fp:
                 fp.write(readme_new)
             print(f"{toc_file} has been copied to {target}")
-    exit(1)
+            exit(0)
+        # nothing happened, which is probably not what was intended when running this command
+        exit(1)
