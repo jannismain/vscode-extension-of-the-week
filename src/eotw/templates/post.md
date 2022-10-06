@@ -23,7 +23,7 @@ labels:
 
 *In this article:*
 
-- *VSCode Theme: [Atom One Light Theme] + [City Lights Icons]*
+- *VSCode Theme: [GitHub Light Theme]*
 
 <!-- references -->
 
@@ -33,3 +33,4 @@ labels:
 [github]: ../../img/github.svg
 [atom one light theme]: https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight
 [city lights icons]: https://marketplace.visualstudio.com/items?itemName=yummygum.city-lights-icon-vsc
+[github light theme]: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme

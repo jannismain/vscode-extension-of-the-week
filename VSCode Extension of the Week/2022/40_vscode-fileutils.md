@@ -28,7 +28,7 @@ Of course, if you are an experienced user of the terminal, you might not need th
 
 *In this article:*
 
-- *VSCode Theme: [Atom One Light Theme] + [City Lights Icons]*
+- *VSCode Theme: [Github Light Theme]*
 
 <!-- references -->
 
@@ -36,5 +36,4 @@ Of course, if you are an experienced user of the terminal, you might not need th
 [macos]: ../../img/apple.svg
 [win]: ../../img/win.svg
 [github]: ../../img/github.svg
-[atom one light theme]: https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onelight
-[city lights icons]: https://marketplace.visualstudio.com/items?itemName=yummygum.city-lights-icon-vsc
+[github light theme]: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
